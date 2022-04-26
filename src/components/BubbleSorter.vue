@@ -18,6 +18,9 @@ export default {
       const uniqueList = [...new Set(arr)];
       return uniqueList;
     },
+    scramble() {
+      this.data = this.randomArray(0, 15);
+    },
     sleep(milliseconds) {
       return new Promise((resolve) => setTimeout(resolve, milliseconds));
     },

@@ -27,6 +27,9 @@ export default {
       this.clicked = true;
       this.$refs.componentRef.sort();
     },
+    scrambleData() {
+      this.$refs.componentRef.scramble();
+    },
     changeTab(tab) {
       if (this.currentTab !== tab.name) {
         this.currentTab = tab.name;
@@ -104,6 +107,31 @@ export default {
             @click="openSettings()"
           >
             Settings
+          </button>
+          <button
+            type="button"
+            class="
+              ml-3
+              inline-flex
+              items-center
+              px-4
+              py-2
+              border border-transparent
+              rounded-md
+              shadow-sm
+              text-sm
+              font-medium
+              text-white
+              bg-stone-800
+              hover:bg-stone-700
+              focus:outline-none
+              focus:ring-2
+              focus:ring-offset-2
+              focus:ring-green-500
+            "
+            @click="scrambleData()"
+          >
+            Scramble
           </button>
           <button
             type="button"

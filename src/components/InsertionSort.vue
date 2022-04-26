@@ -18,6 +18,9 @@ export default {
       const uniqueList = [...new Set(arr)];
       return uniqueList;
     },
+    scramble() {
+      this.data = this.randomArray(0, 15);
+    },
     sleep(milliseconds) {
       return new Promise((resolve) => setTimeout(resolve, milliseconds));
     },
@@ -39,13 +42,15 @@ export default {
               j = j - 1; 
           } 
           arr[j + 1] = key; 
+          this.active = j;
           await this.sleep(5)
           this.data = arr;
       } 
+      this.active = -2;
     },
   },
   mounted() {
-    this.data = this.randomArray(0, 10);
+    this.data = this.randomArray(0, 15);
   },
 };
 </script>
@@ -56,7 +61,7 @@ export default {
     <div v-for="(item, index) in data" v-bind:key="item">
       <div
         class="rounded-full"
-        :class="index === active ? 'bg-green-400' : index % 2 === 0 ? 'bg-red-500' : 'bg-red-200'"
+        :class="(index === active || index + 1 === active) ? 'bg-green-400' : index % 2 === 0 ? 'bg-red-500' : 'bg-red-200'"
         :style="'width: ' + 2 + 'px;' + 'height: ' + item * 10 + 'px;'"
       ></div>
     </div>
