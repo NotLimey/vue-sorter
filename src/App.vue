@@ -1,66 +1,99 @@
 
 <script>
-import { faker } from "@faker-js/faker";
+import BubbleSorter from "./components/BubbleSorter.vue";
+const tabs = [{ name: "BubbleSorter", component: BubbleSorter }];
+
 export default {
+  components: { BubbleSorter },
   data() {
     return {
-      data: [],
-      active: -2,
+      tabs: tabs,
+      currentTab: tabs[0].name,
     };
-  },
-  methods: {
-    randomArray(min, max) {
-      var arr = [];
-      for(var i = 0; i < 10; i++) {
-        arr.push((min + Math.random() * (max - min)).toFixed());
-      }
-      return arr;
-    },
-    sleep(milliseconds) {
-      return new Promise((resolve) => setTimeout(resolve, milliseconds));
-    },
-    async sort(arr) {
-      for (var i = 0; i < arr.length; i++) {
-        for (var j = 0; j < arr.length - i - 1; j++) {
-          // Checking if the item at present iteration
-          // is greater than the next iteration
-          if (arr[j] > arr[j + 1]) {
-            // If the condition is true then swap them
-            var temp = arr[j];
-            arr[j] = arr[j + 1];
-            arr[j + 1] = temp;
-          }
-          this.active = j;
-          await this.sleep(200);
-          this.data = arr;
-        }
-      }
-      this.active = null;
-    },
-  },
-  mounted() {
-    this.data = this.randomArray(0, 20);
-    console.log(this.randomArray(0, 20))
   },
 };
 </script>
 
 
 <template>
-  <div class="flex gap-4 justify-center items-center mt-14">
-    <div v-for="(item, index) in data" v-bind:key="item">
-      <div
-        class="rounded-full"
-        :class="
-          active === index || active + 1 === index
-            ? 'bg-green-400'
-            : 'bg-red-500'
-        "
-        :style="'width: ' + item * 8 + 'px;' + 'height: ' + item * 8 + 'px;'"
-      ></div>
+  <div class="px-10">
+    <div class="relative pb-5 border-b border-gray-700 sm:pb-0 mt-10">
+      <div class="md:flex md:items-center md:justify-between">
+        <h3 class="text-lg leading-6 font-medium text-stone-100">Sorting</h3>
+        <div class="mt-3 flex md:mt-0 md:absolute md:top-3 md:right-0">
+          <button
+            type="button"
+            class="
+              ml-3
+              inline-flex
+              items-center
+              px-4
+              py-2
+              border border-transparent
+              rounded-md
+              shadow-sm
+              text-sm
+              font-medium
+              text-black
+              bg-green-600
+              hover:bg-green-700
+              focus:outline-none
+              focus:ring-2
+              focus:ring-offset-2
+              focus:ring-green-500
+            "
+          >
+            Sort
+          </button>
+        </div>
+      </div>
+      <div class="mt-4">
+        <div class="sm:hidden">
+          <label for="current-tab" class="sr-only">Select a tab</label>
+          <select
+            id="current-tab"
+            name="current-tab"
+            class="
+              block
+              w-full
+              pl-3
+              pr-10
+              py-2
+              text-base
+              border-stone-800
+              focus:outline-none focus:ring-green-500 focus:border-green-500
+              sm:text-sm
+              rounded-md
+            "
+          >
+            <option v-for="tab in tabs" :key="tab.name" :selected="currentTab">
+              {{ tab.name }}
+            </option>
+          </select>
+        </div>
+        <div class="hidden sm:block">
+          <nav class="-mb-px flex space-x-8">
+            <button
+              v-for="tab in tabs"
+              :key="tab.name"
+              :class="[
+                tab.name === currentTab
+                  ? 'border-green-500 text-green-600'
+                  : 'border-transparent text-stone-400 hover:text-stone-300 hover:border-stone-600',
+                'whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm',
+              ]"
+              :aria-current="tab.name === currentTab ? 'page' : undefined"
+            >
+              {{ tab.name }}
+            </button>
+          </nav>
+        </div>
+      </div>
     </div>
+    <keep-alive>
+      <component :is="currentTab" />
+    </keep-alive>
   </div>
-  <button @click="sort(this.data)">Sort</button>
 </template>
 
 <style>
