@@ -3,6 +3,7 @@
 import BubbleSorter from "./components/BubbleSorter.vue";
 import SelectionSort from "./components/SelectionSort.vue";
 import InsertionSort from "./components/InsertionSort.vue";
+import SettingsComponent from "./components/SettingsComponent.vue";
 const tabs = [
   { name: "BubbleSorter", component: BubbleSorter },
   { name: "SelectionSort", component: SelectionSort },
@@ -10,7 +11,7 @@ const tabs = [
 ];
 
 export default {
-  components: { BubbleSorter, SelectionSort, InsertionSort },
+  components: { BubbleSorter, SelectionSort, InsertionSort, SettingsComponent },
   data() {
     return {
       tabs: tabs,
@@ -47,6 +48,7 @@ export default {
 </script>
 
 <template>
+  <settings-component />
   <div class="px-10">
     <div class="relative pb-5 border-b border-gray-700 sm:pb-0 mt-10">
       <div class="md:flex md:items-center md:justify-between">
