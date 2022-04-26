@@ -20,23 +20,28 @@ export default {
       return new Promise((resolve) => setTimeout(resolve, milliseconds));
     },
     async sort() {
-      let arr = this.data;
-      for (var i = 0; i < arr.length; i++) {
-        for (var j = 0; j < arr.length - i - 1; j++) {
-          // Checking if the item at present iteration
-          // is greater than the next iteration
-          if (arr[j] > arr[j + 1]) {
-            // If the condition is true then swap them
-            var temp = arr[j];
-            arr[j] = arr[j + 1];
-            arr[j + 1] = temp;
+      let inputArr = this.data;
+      let n = inputArr.length;
+
+      for (let i = 0; i < n; i++) {
+        // Finding the smallest number in the subarray
+        let min = i;
+        for (let j = i + 1; j < n; j++) {
+          if (inputArr[j] < inputArr[min]) {
+            min = j;
           }
-          this.active = j;
+          this.data = inputArr;
+          this.active = i;
           await this.sleep(1);
-          this.data = arr;
+        }
+        if (min != i) {
+          // Swapping the elements
+          let tmp = inputArr[i];
+          inputArr[i] = inputArr[min];
+          inputArr[min] = tmp;
         }
       }
-      this.active = null;
+      return inputArr;
     },
   },
   mounted() {
@@ -52,11 +57,7 @@ export default {
     <div v-for="(item, index) in data" v-bind:key="item">
       <div
         class="rounded-full"
-        :class="
-          active === index || active + 1 === index
-            ? 'bg-green-400'
-            : 'bg-red-500'
-        "
+        :class="active === index ? 'bg-green-400' : 'bg-red-500'"
         :style="'width: ' + item * 8 + 'px;' + 'height: ' + item * 8 + 'px;'"
       ></div>
     </div>

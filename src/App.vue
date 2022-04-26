@@ -1,11 +1,14 @@
 
 <script>
 import BubbleSorter from "./components/BubbleSorter.vue";
-import { ref } from "vue";
-const tabs = [{ name: "BubbleSorter", component: BubbleSorter }];
+import SelectionSort from "./components/SelectionSort.vue";
+const tabs = [
+  { name: "BubbleSorter", component: BubbleSorter },
+  { name: "SelectionSort", component: SelectionSort },
+];
 
 export default {
-  components: { BubbleSorter },
+  components: { BubbleSorter, SelectionSort },
   data() {
     return {
       tabs: tabs,
@@ -89,6 +92,7 @@ export default {
                 'whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm',
               ]"
               :aria-current="tab.name === currentTab ? 'page' : undefined"
+              @click="currentTab = tab.name"
             >
               {{ tab.name }}
             </button>
