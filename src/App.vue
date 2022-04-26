@@ -15,12 +15,33 @@ export default {
     return {
       tabs: tabs,
       currentTab: tabs[0].name,
+      clicked: false,
     };
   },
   methods: {
     sortData() {
+      this.clicked = true;
       this.$refs.componentRef.sort();
     },
+    changeTab(tab) {
+      if (this.currentTab !== tab.name) {
+        this.currentTab = tab.name;
+        this.clicked = false;
+        this.updateTab();
+      }
+    },
+    updateTab() {
+      window.localStorage.setItem(
+        "currentTab",
+        JSON.stringify(this.currentTab)
+      );
+    },
+  },
+  mounted() {
+    const currentTab = window.localStorage.getItem("currentTab");
+    if (currentTab) {
+      this.currentTab = JSON.parse(currentTab);
+    }
   },
 };
 </script>
@@ -44,6 +65,31 @@ export default {
               shadow-sm
               text-sm
               font-medium
+              text-white
+              bg-stone-800
+              hover:bg-stone-700
+              focus:outline-none
+              focus:ring-2
+              focus:ring-offset-2
+              focus:ring-green-500
+            "
+            @click="sortData()"
+          >
+            Settings
+          </button>
+          <button
+            type="button"
+            class="
+              ml-3
+              inline-flex
+              items-center
+              px-4
+              py-2
+              border border-transparent
+              rounded-md
+              shadow-sm
+              text-sm
+              font-medium
               text-black
               bg-green-600
               hover:bg-green-700
@@ -52,6 +98,7 @@ export default {
               focus:ring-offset-2
               focus:ring-green-500
             "
+            :disabled="this.clicked"
             @click="sortData()"
           >
             Sort
@@ -94,7 +141,7 @@ export default {
                 'whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm',
               ]"
               :aria-current="tab.name === currentTab ? 'page' : undefined"
-              @click="currentTab = tab.name"
+              @click="changeTab(tab)"
             >
               {{ tab.name }}
             </button>

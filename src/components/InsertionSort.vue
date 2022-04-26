@@ -10,7 +10,7 @@ export default {
   methods: {
     randomArray(min, max) {
       var arr = [];
-      for (var i = 0; i < 10; i++) {
+      for (var i = 0; i < 1000; i++) {
         arr.push(min + Math.random() * (max - min));
       }
       const uniqueList = [...new Set(arr)];
@@ -30,6 +30,7 @@ export default {
         while (j > -1 && current < inputArr[j]) {
           inputArr[j + 1] = inputArr[j];
           j--;
+          this.data = inputArr;
         }
         this.active = i;
         inputArr[j + 1] = current;
@@ -40,19 +41,19 @@ export default {
     },
   },
   mounted() {
-    this.data = this.randomArray(0, 15);
+    this.data = this.randomArray(0, 10);
   },
 };
 </script>
 
 
 <template>
-  <div class="flex gap-4 justify-center items-center mt-14">
+  <div class="flex justify-center items-center mt-14">
     <div v-for="(item, index) in data" v-bind:key="item">
       <div
         class="rounded-full"
-        :class="active === index ? 'bg-green-400' : 'bg-red-500'"
-        :style="'width: ' + item * 8 + 'px;' + 'height: ' + item * 8 + 'px;'"
+        :class="index % 2 === 0 ? 'bg-green-400' : 'bg-red-500'"
+        :style="'width: ' + 1 + 'px;' + 'height: ' + item * 10 + 'px;'"
       ></div>
     </div>
   </div>

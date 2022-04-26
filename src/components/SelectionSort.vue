@@ -10,7 +10,7 @@ export default {
   methods: {
     randomArray(min, max) {
       var arr = [];
-      for (var i = 0; i < 10; i++) {
+      for (var i = 0; i < 30; i++) {
         arr.push(min + Math.random() * (max - min));
       }
       const uniqueList = [...new Set(arr)];
@@ -53,12 +53,12 @@ export default {
 
 
 <template>
-  <div class="flex gap-4 justify-center items-center mt-14">
+  <div class="flex gap-1 justify-center items-center mt-14">
     <div v-for="(item, index) in data" v-bind:key="item">
       <div
         class="rounded-full"
-        :class="active === index ? 'bg-green-400' : 'bg-red-500'"
-        :style="'width: ' + item * 8 + 'px;' + 'height: ' + item * 8 + 'px;'"
+        :class="index === active ? 'bg-green-400' : 'bg-red-500'"
+        :style="'width: ' + 2 + 'px;' + 'height: ' + item * 10 + 'px;'"
       ></div>
     </div>
   </div>
