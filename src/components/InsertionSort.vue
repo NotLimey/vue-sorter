@@ -20,23 +20,23 @@ export default {
       return new Promise((resolve) => setTimeout(resolve, milliseconds));
     },
     async sort() {
-      let arr = this.data;
-      for (var i = 0; i < arr.length; i++) {
-        for (var j = 0; j < arr.length - i - 1; j++) {
-          // Checking if the item at present iteration
-          // is greater than the next iteration
-          if (arr[j] > arr[j + 1]) {
-            // If the condition is true then swap them
-            var temp = arr[j];
-            arr[j] = arr[j + 1];
-            arr[j + 1] = temp;
-          }
-          this.active = j;
-          await this.sleep(1);
-          this.data = arr;
+      let inputArr = this.data;
+      let n = inputArr.length;
+      for (let i = 1; i < n; i++) {
+        // Choosing the first element in our unsorted subarray
+        let current = inputArr[i];
+        // The last element of our sorted subarray
+        let j = i - 1;
+        while (j > -1 && current < inputArr[j]) {
+          inputArr[j + 1] = inputArr[j];
+          j--;
         }
+        this.active = i;
+        inputArr[j + 1] = current;
+        this.sleep(50);
       }
       this.active = -2;
+      return inputArr;
     },
   },
   mounted() {
@@ -51,11 +51,7 @@ export default {
     <div v-for="(item, index) in data" v-bind:key="item">
       <div
         class="rounded-full"
-        :class="
-          active === index || active + 1 === index
-            ? 'bg-green-400'
-            : 'bg-red-500'
-        "
+        :class="active === index ? 'bg-green-400' : 'bg-red-500'"
         :style="'width: ' + item * 8 + 'px;' + 'height: ' + item * 8 + 'px;'"
       ></div>
     </div>

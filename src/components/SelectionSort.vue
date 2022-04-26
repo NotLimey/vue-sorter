@@ -41,12 +41,12 @@ export default {
           inputArr[min] = tmp;
         }
       }
+      this.active = -2;
       return inputArr;
     },
   },
   mounted() {
     this.data = this.randomArray(0, 15);
-    console.log(this.randomArray(0, 15));
   },
 };
 </script>

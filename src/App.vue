@@ -2,13 +2,15 @@
 <script>
 import BubbleSorter from "./components/BubbleSorter.vue";
 import SelectionSort from "./components/SelectionSort.vue";
+import InsertionSort from "./components/InsertionSort.vue";
 const tabs = [
   { name: "BubbleSorter", component: BubbleSorter },
   { name: "SelectionSort", component: SelectionSort },
+  { name: "InsertionSort", component: InsertionSort },
 ];
 
 export default {
-  components: { BubbleSorter, SelectionSort },
+  components: { BubbleSorter, SelectionSort, InsertionSort },
   data() {
     return {
       tabs: tabs,
