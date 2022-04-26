@@ -7,10 +7,11 @@ export default {
       active: -2,
     };
   },
+  props: ["settings"],
   methods: {
     randomArray(min, max) {
       var arr = [];
-      for (var i = 0; i < 30; i++) {
+      for (var i = 0; i < this.settings.amount; i++) {
         arr.push(min + Math.random() * (max - min));
       }
       const uniqueList = [...new Set(arr)];

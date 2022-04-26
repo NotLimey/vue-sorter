@@ -81,3 +81,8 @@ body {
   height: 100%;
   overflow: hidden;
 }
+
+[type="text"]:focus {
+  outline: hidden !important;
+  border: none !important;
+}

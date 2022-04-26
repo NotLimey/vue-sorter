@@ -17,6 +17,8 @@ export default {
       tabs: tabs,
       currentTab: tabs[0].name,
       clicked: false,
+      settingsOpen: false,
+      settings: {},
     };
   },
   methods: {
@@ -37,9 +39,30 @@ export default {
         JSON.stringify(this.currentTab)
       );
     },
+    closeSettings() {
+      window.document.querySelector("body").classList.remove("stop-scrolling");
+      this.settingsOpen = false;
+    },
+    openSettings() {
+      this.settingsOpen = true;
+    },
   },
   mounted() {
     const currentTab = window.localStorage.getItem("currentTab");
+    const settings = window.localStorage.getItem("settings");
+    if (!settings) {
+      const _settings = {
+        amount: 30,
+      };
+      window.localStorage.setItem("settings", JSON.stringify(_settings));
+      this.settings = {
+        amount: 30,
+      };
+    } else {
+      this.settings = {
+        amount: 30,
+      };
+    }
     if (currentTab) {
       this.currentTab = JSON.parse(currentTab);
     }
@@ -48,7 +71,7 @@ export default {
 </script>
 
 <template>
-  <settings-component />
+  <settings-component v-if="settingsOpen" @close="closeSettings()" />
   <div class="px-10">
     <div class="relative pb-5 border-b border-gray-700 sm:pb-0 mt-10">
       <div class="md:flex md:items-center md:justify-between">
@@ -75,7 +98,7 @@ export default {
               focus:ring-offset-2
               focus:ring-green-500
             "
-            @click="sortData()"
+            @click="openSettings()"
           >
             Settings
           </button>
@@ -152,7 +175,7 @@ export default {
       </div>
     </div>
     <keep-alive>
-      <component :is="currentTab" ref="componentRef" />
+      <component :is="currentTab" ref="componentRef" :settings="settings" />
     </keep-alive>
   </div>
 </template>
