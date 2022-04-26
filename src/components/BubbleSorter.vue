@@ -18,7 +18,8 @@ export default {
     sleep(milliseconds) {
       return new Promise((resolve) => setTimeout(resolve, milliseconds));
     },
-    async sort(arr) {
+    async sort() {
+      var arr = this.data;
       for (var i = 0; i < arr.length; i++) {
         for (var j = 0; j < arr.length - i - 1; j++) {
           // Checking if the item at present iteration
@@ -59,5 +60,4 @@ export default {
       ></div>
     </div>
   </div>
-  <button @click="sort(this.data)">Sort</button>
 </template>

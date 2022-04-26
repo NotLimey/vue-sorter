@@ -1,6 +1,7 @@
 
 <script>
 import BubbleSorter from "./components/BubbleSorter.vue";
+import { ref } from "vue";
 const tabs = [{ name: "BubbleSorter", component: BubbleSorter }];
 
 export default {
@@ -11,9 +12,13 @@ export default {
       currentTab: tabs[0].name,
     };
   },
+  methods: {
+    sortData() {
+      this.$refs.componentRef.sort();
+    },
+  },
 };
 </script>
-
 
 <template>
   <div class="px-10">
@@ -42,6 +47,7 @@ export default {
               focus:ring-offset-2
               focus:ring-green-500
             "
+            @click="sortData()"
           >
             Sort
           </button>
@@ -91,7 +97,7 @@ export default {
       </div>
     </div>
     <keep-alive>
-      <component :is="currentTab" />
+      <component :is="currentTab" ref="componentRef" />
     </keep-alive>
   </div>
 </template>
