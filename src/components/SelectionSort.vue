@@ -9,8 +9,10 @@ export default {
   },
   methods: {
     randomArray(min, max) {
+      let set = window.localStorage.getItem("settings")
+      set = JSON.parse(set)
       var arr = [];
-      for (var i = 0; i < 30; i++) {
+      for (var i = 0; i < set.amount; i++) {
         arr.push(min + Math.random() * (max - min));
       }
       const uniqueList = [...new Set(arr)];
@@ -57,7 +59,7 @@ export default {
     <div v-for="(item, index) in data" v-bind:key="item">
       <div
         class="rounded-full"
-        :class="index === active ? 'bg-green-400' : 'bg-red-500'"
+        :class="index === active ? 'bg-green-400' : index % 2 === 0 ? 'bg-red-500' : 'bg-red-200'"
         :style="'width: ' + 2 + 'px;' + 'height: ' + item * 10 + 'px;'"
       ></div>
     </div>

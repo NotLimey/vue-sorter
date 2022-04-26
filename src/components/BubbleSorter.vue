@@ -53,7 +53,7 @@ export default {
     <div v-for="(item, index) in data" v-bind:key="item">
       <div
         class="rounded-full"
-        :class="index % 2 === 0 ? 'bg-green-400' : 'bg-red-500'"
+        :class="(index === active || index + 1 === active )? 'bg-green-400' : index % 2 === 0 ? 'bg-red-500' : 'bg-red-200'"
         :style="'width: ' + 2 + 'px;' + 'height: ' + item * 10 + 'px;'"
       ></div>
     </div>
