@@ -4,6 +4,7 @@ import BubbleSorter from "./components/BubbleSorter.vue";
 import SelectionSort from "./components/SelectionSort.vue";
 import InsertionSort from "./components/InsertionSort.vue";
 import SettingsComponent from "./components/SettingsComponent.vue";
+
 const tabs = [
   { name: "BubbleSorter", component: BubbleSorter },
   { name: "SelectionSort", component: SelectionSort },
@@ -29,6 +30,9 @@ export default {
     },
     scrambleData() {
       this.$refs.componentRef.scramble();
+    },
+    unClick() {
+      this.clicked = false;
     },
     changeTab(tab) {
       if (this.currentTab !== tab.name) {
@@ -170,11 +174,12 @@ export default {
             class="
               block
               w-full
+              bg-stone-800
               pl-3
               pr-10
               py-2
               text-base
-              border-stone-800
+              border-stone-700
               focus:outline-none focus:ring-green-500 focus:border-green-500
               sm:text-sm
               rounded-md
@@ -185,7 +190,7 @@ export default {
             </option>
           </select>
         </div>
-        <div class="hidden sm:block">
+        <div class="hidden sm:block mt-12">
           <nav class="-mb-px flex space-x-8">
             <button
               v-for="tab in tabs"
@@ -206,7 +211,7 @@ export default {
       </div>
     </div>
     <keep-alive>
-      <component :is="currentTab" ref="componentRef" :settings="settings" />
+      <component :is="currentTab" ref="componentRef" :settings="settings" @un-disable="unClick()" />
     </keep-alive>
   </div>
 </template>

@@ -47,6 +47,7 @@ export default {
           this.data = arr;
       } 
       this.active = -2;
+      this.$emit("unDisable");
     },
   },
   mounted() {
