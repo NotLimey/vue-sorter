@@ -19,6 +19,7 @@ export default {
       clicked: false,
       settingsOpen: false,
       settings: {},
+      componentKey: 0
     };
   },
   methods: {
@@ -41,7 +42,10 @@ export default {
     },
     closeSettings() {
       window.document.querySelector("body").classList.remove("stop-scrolling");
+      const set = window.localStorage.getItem("settings")
+      this.settings = JSON.parse(set)
       this.settingsOpen = false;
+      window.location.reload();
     },
     openSettings() {
       this.settingsOpen = true;
@@ -59,19 +63,18 @@ export default {
         amount: 30,
       };
     } else {
-      this.settings = {
-        amount: 30,
-      };
+      const set = window.localStorage.getItem("settings")
+      this.settings = JSON.parse(set)
     }
     if (currentTab) {
       this.currentTab = JSON.parse(currentTab);
     }
-  },
+  }
 };
 </script>
 
 <template>
-  <settings-component v-if="settingsOpen" @close="closeSettings()" />
+  <settings-component :key="componentKey" v-if="settingsOpen" @close="closeSettings()" />
   <div class="px-10">
     <div class="relative pb-5 border-b border-gray-700 sm:pb-0 mt-10">
       <div class="md:flex md:items-center md:justify-between">

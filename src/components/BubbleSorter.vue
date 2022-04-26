@@ -7,11 +7,12 @@ export default {
       active: -2,
     };
   },
-  props: ["settings"],
   methods: {
     randomArray(min, max) {
+      let set = window.localStorage.getItem("settings")
+      set = JSON.parse(set)
       var arr = [];
-      for (var i = 0; i < this.settings.amount; i++) {
+      for (var i = 0; i < set.amount; i++) {
         arr.push(min + Math.random() * (max - min));
       }
       const uniqueList = [...new Set(arr)];
