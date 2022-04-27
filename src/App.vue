@@ -74,7 +74,14 @@ export default {
       this.settings = JSON.parse(set)
     }
     if (currentTab) {
-      this.currentTab = JSON.parse(currentTab);
+      const tab = JSON.parse(currentTab);
+      const foundTab = tabs.find(x => x.name === tab);
+      if(!foundTab) {
+        this.currentTab = tabs[0].name;
+        window.localStorage.setItem("currentTab", JSON.stringify(tabs[0].name))
+      }else {
+        this.currentTab = tab;
+      }
     }
   }
 };
