@@ -10,7 +10,7 @@ export default {
   methods: {
     randomArray(min, max) {
       let set = window.localStorage.getItem("settings")
-      set = JSON.parse(set)
+      set = JSON.parse(set) || {amount: 100}
       var arr = [];
       for (var i = 0; i < set.amount; i++) {
         arr.push(min + Math.random() * (max - min));

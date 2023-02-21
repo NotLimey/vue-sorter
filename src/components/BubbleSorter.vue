@@ -11,7 +11,7 @@ export default {
   methods: {
     randomArray(min, max) {
       let set = window.localStorage.getItem("settings")
-      set = JSON.parse(set)
+      set = JSON.parse(set) || {amount: 100}
       var arr = [];
       for (var i = 0; i < set.amount; i++) {
         arr.push(min + Math.random() * (max - min));
@@ -56,7 +56,7 @@ export default {
 
 <template>
   <div class="flex gap-1 justify-center items-end mt-14 w-full">
-    <div v-for="(item, index) in data" v-bind:key="item" :style="'width: ' + (amount / 120).toFixed(2) + '%;'  ">
+    <div v-for="(item, index) in data" v-bind:key="item" :style="'width: ' + (100 / amount).toFixed(2) + '%;'  ">
       <div
         class="rounded-[2px]"
         :class="(index === active || index + 1 === active )? 'bg-green-400' : index % 2 === 0 ? 'bg-red-500' : 'bg-red-200'"
