@@ -5,6 +5,7 @@ export default {
     return {
       data: [],
       active: -2,
+      amount: 100
     };
   },
   methods: {
@@ -15,6 +16,7 @@ export default {
       for (var i = 0; i < set.amount; i++) {
         arr.push(min + Math.random() * (max - min));
       }
+      this.amount = set.amount
       const uniqueList = [...new Set(arr)];
       return uniqueList;
     },
@@ -38,7 +40,7 @@ export default {
           }
           this.active = j;
           this.data = arr;
-          await this.sleep();
+          await this.sleep(0);
         }
       }
       this.active = -2;
@@ -53,12 +55,12 @@ export default {
 
 
 <template>
-  <div class="flex gap-1 justify-center items-center mt-14">
-    <div v-for="(item, index) in data" v-bind:key="item">
+  <div class="flex gap-1 justify-center items-end mt-14 w-full">
+    <div v-for="(item, index) in data" v-bind:key="item" :style="'width: ' + (amount / 120).toFixed(2) + '%;'  ">
       <div
-        class="rounded-full"
+        class="rounded-[2px]"
         :class="(index === active || index + 1 === active )? 'bg-green-400' : index % 2 === 0 ? 'bg-red-500' : 'bg-red-200'"
-        :style="'width: ' + 2 + 'px;' + 'height: ' + item * 10 + 'px;'"
+        :style="'width: 100%;' + 'height: ' + item * 30 + 'px;'"
       ></div>
     </div>
   </div>
